@@ -1,3 +1,6 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include <SDL.h>
 #include <iostream>
 #include <string>
@@ -21,3 +24,5 @@ private:
     bool m_gameIsRunning;
 
 };
+
+#endif // !GAME_H
