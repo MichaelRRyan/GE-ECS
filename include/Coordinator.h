@@ -10,13 +10,14 @@ class Coordinator
 {
 public:
 
-    void init()
+    static Coordinator * getInstance()
     {
-        // Creates pointers to each manager.
-		m_componentManager = std::make_unique<ComponentManager>();
-		m_entityManager = std::make_unique<EntityManager>();
-		m_systemManager = std::make_unique<SystemManager>();
+        static Coordinator instance;
+        return &instance;
     }
+
+    Coordinator(Coordinator const &) = delete;
+    void operator=(Coordinator const &) = delete;
 
     // Entity methods.
     Entity createEntity()
@@ -72,10 +73,18 @@ public:
     template<typename T>
     void setSystemSignature(Signature t_signature)
     {
-        m_systemManager->setSignature<T>(Signature);
+        m_systemManager->setSignature<T>(t_signature);
     }
 
 private:
+
+    Coordinator()
+    {
+        // Creates pointers to each manager.
+		m_componentManager = std::make_unique<ComponentManager>();
+		m_entityManager = std::make_unique<EntityManager>();
+		m_systemManager = std::make_unique<SystemManager>();
+    }
 
     std::unique_ptr<ComponentManager> m_componentManager;
     std::unique_ptr<EntityManager> m_entityManager;

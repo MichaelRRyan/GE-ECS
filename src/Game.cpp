@@ -3,7 +3,7 @@
 Game::Game() :
     m_gameIsRunning{ false }
 {
-
+    Coordinator::getInstance();
 }
     
 Game::~Game()

@@ -3,7 +3,8 @@
 
 #include <array>
 #include <unordered_map>
-#include "Entity.h"
+#include <assert.h>
+#include "entities/Entity.h"
 
 // An interface is needed so that the ComponentManager can tell a generic
 // ComponentArray that an entity has been destroyed and that it needs to update

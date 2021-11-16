@@ -7,4 +7,4 @@
 // A type alias for component signatures.
 using Signature = std::bitset<MAX_COMPONENTS>;
 
-#endif SIGNATURE_H
+#endif // !SIGNATURE_H

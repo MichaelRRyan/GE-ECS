@@ -9,4 +9,4 @@ using ComponentType = std::uint32_t;
 // Defines the size of the component arrays.
 const ComponentType MAX_COMPONENTS = 32;
 
-#endif COMPONENT_H
+#endif // !COMPONENT_H

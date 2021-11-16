@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <memory>
+#include <assert.h>
 #include "components/Component.h"
 #include "ComponentArray.h"
 
@@ -19,11 +20,11 @@ public:
             && "Registering component type more than once.");
         
         // Adds this component type to the component type map.
-        m_componentTypes.insert({ typeName, m_nextComponentType });
+        m_componentTypes.emplace(typeName, m_nextComponentType);
 
         // Creates a ComponentArray pointer and adds it to the component
         // arrays map.
-        m_componentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
+        m_componentArrays.emplace(typeName, std::make_shared<ComponentArray<T>>());
 
         // Increments the value so that the next component registered will be different.
         ++m_nextComponentType;
@@ -93,7 +94,7 @@ private:
         assert(m_componentTypes.find(typeName) != m_componentTypes.end()
             && "Component not registered before use.");
         
-        return std::smart_pointer_cast<ComponentArray<T>>(m_componentArrays[typeName]);
+        return std::static_pointer_cast<ComponentArray<T>>(m_componentArrays[typeName]);
     }
 };
 

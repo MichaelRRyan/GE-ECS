@@ -2,6 +2,7 @@
 #define SYSTEM_MANAGER_H
 
 #include <unordered_map>
+#include <assert.h>
 #include "systems/System.h"
 #include "Signature.h"
 
@@ -14,12 +15,12 @@ public:
     {
         const char * typeName = typeid(T).name();
 
-        assert(m_systems.find(typeName) == m_system.end()
+        assert(m_systems.find(typeName) == m_systems.end()
             && "Registering system more than once.");
         
         // Creates a pointer to the system and returns it so it can be used externally.
         auto system = std::make_shared<T>();
-        m_systems.insert({ typeName, system });
+        m_systems.emplace(typeName, system);
         return system;
     }
 
@@ -32,7 +33,7 @@ public:
             && "System used before registered.");
         
         // Sets the signature for this system.
-        m_systems.insert({ typeName, t_signature });
+        m_systems.emplace(typeName, t_signature);
     }
 
     void entityDestroyed(Entity t_entity)
