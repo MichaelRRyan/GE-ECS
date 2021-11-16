@@ -58,6 +58,11 @@ public:
     template<typename T>
     T & getComponent(Entity t_entity)
     {
+        return getComponentArray<T>()->getData(t_entity);
+    }
+
+    void entityDestroyed(Entity t_entity)
+    {
         // Notifies each component array that an entity has been destroyed.
         // If it has a component for that entity, it will remove it.
         for (auto const & pair : m_componentArrays)
