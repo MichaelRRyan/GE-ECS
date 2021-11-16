@@ -74,6 +74,6 @@ private:
     // Map from system type string pointer to a system pointer.
     std::unordered_map<const char *, std::shared_ptr<System>> m_systems;
 
-}
+};
 
 #endif // !SYSTEM_MANAGER_H
