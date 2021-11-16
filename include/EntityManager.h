@@ -30,6 +30,34 @@ public:
         return id;
     }
 
+    void destroyEntity(Entity t_entity)
+    {
+        assert(t_entity < MAX_ENTITIES && "Entity out of range.");
+
+        // Invalidates the destroyed entity's signature.
+        m_signatures[t_entity].reset();
+
+        // Puts the destroyed ID at the back of the queue.
+        m_availableEntities.push(t_entity);
+        --m_livingEntitiesCount;
+    }
+
+    void setSignature(Entity t_entity, Signature t_signature)
+    {
+        assert(t_entity < MAX_ENTITIES && "Entity out of range.");
+
+        // Puts this entity's signature into the array.
+        m_signatures[t_entity] = t_signature;
+    }
+
+    Signature getSignature(Entity t_entity)
+    {
+        assert(t_entity < MAX_ENTITIES && "Entity out of range.");
+
+        // Gets this entity's signature from the array.
+        return m_signatures[t_entity];
+    }
+
 private:
 
     // A queue of unused entity IDs for assigning.
