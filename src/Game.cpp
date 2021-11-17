@@ -69,10 +69,10 @@ void Game::cleanUp()
 
 void Game::registerComponents(Coordinator & t_coord)
 {
-    t_coord.registerComponent<ecs::component::Input>();
-    t_coord.registerComponent<ecs::component::Health>();
-    t_coord.registerComponent<ecs::component::Position>();
     t_coord.registerComponent<ecs::component::Name>();
+    t_coord.registerComponent<ecs::component::Health>();
+    t_coord.registerComponent<ecs::component::Input>();
+    t_coord.registerComponent<ecs::component::Position>();
     t_coord.registerComponent<ecs::component::AI>();
 }
 
@@ -112,29 +112,31 @@ void Game::setupSystems(Coordinator & t_coord)
 
 void Game::setupEntities(Coordinator & t_coord)
 {
-    // Creates all the entities and adds a position component.
-    float offset = 0.0f;
+    std::string names[]{ "Player", "Villain", "Cortana", "Dinki Di" };
+
+    // Creates all the entities and adds a name component.
+    int i = 0;
     for (Entity & entity : m_entities)
     {
         entity = t_coord.createEntity();
-        t_coord.addComponent(entity, ecs::component::Position{ 50.0f + 100.0f * offset++, 50.0f });
+        t_coord.addComponent(entity, ecs::component::Name{ names[i++] });
     }
 
     // Sets up player.
-    t_coord.addComponent(m_entities.at(0), ecs::component::Name{ "Player" });
     t_coord.addComponent(m_entities.at(0), ecs::component::Health{ 20.0f });
+    t_coord.addComponent(m_entities.at(0), ecs::component::Position{ 50.0f, 50.0f });
     t_coord.addComponent(m_entities.at(0), ecs::component::Input());
     
     // Sets up villain.
-    t_coord.addComponent(m_entities.at(1), ecs::component::Name{ "Villain" });
     t_coord.addComponent(m_entities.at(1), ecs::component::Health{ 50.0f });
+    t_coord.addComponent(m_entities.at(1), ecs::component::Position{ 150.0f, 50.0f });
     t_coord.addComponent(m_entities.at(1), ecs::component::AI{ 0.0f, 0.0f, 10.0f });
 
     // Sets up Cortana.
-    t_coord.addComponent(m_entities.at(2), ecs::component::Name{ "Cortana" });
     t_coord.addComponent(m_entities.at(2), ecs::component::Health{ 1000.0f });
+    t_coord.addComponent(m_entities.at(2), ecs::component::Position{ 250.0f, 50.0f });
     t_coord.addComponent(m_entities.at(2), ecs::component::AI{ 0.0f, 0.0f, 20.0f });
 
     // Sets up Dinky Di.
-    t_coord.addComponent(m_entities.at(3), ecs::component::Name{ "Dinki Di" });
+    t_coord.addComponent(m_entities.at(3), ecs::component::Position{ 350.0f, 50.0f });
 }
