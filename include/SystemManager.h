@@ -33,7 +33,7 @@ public:
             && "System used before registered.");
         
         // Sets the signature for this system.
-        m_systems.emplace(typeName, t_signature);
+        m_signatures.emplace(typeName, t_signature);
     }
 
     void entityDestroyed(Entity t_entity)
@@ -73,7 +73,7 @@ private:
     std::unordered_map<const char *, Signature> m_signatures{};
 
     // Map from system type string pointer to a system pointer.
-    std::unordered_map<const char *, std::shared_ptr<System>> m_systems;
+    std::unordered_map<const char *, std::shared_ptr<ecs::system::System>> m_systems;
 
 };
 

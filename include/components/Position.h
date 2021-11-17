@@ -1,10 +1,16 @@
-#ifndef POSITION_H
-#define POSITION_H
+#ifndef POSITION_COMPONENT_H
+#define POSITION_COMPONENT_H
 
-struct Position
+namespace ecs
 {
-    float x;
-    float y;
-};
+    namespace component
+    {
+        struct Position
+        {
+            float x;
+            float y;
+        };
+    }
+}
 
-#endif // !POSITION_H
+#endif // !POSITION_COMPONENT_H

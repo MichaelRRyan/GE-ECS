@@ -7,6 +7,6 @@
 using Entity = std::uint32_t;
 
 // Defines the size of the entities arrays.
-const Entity MAX_ENTITIES = 5000;
+const Entity MAX_ENTITIES = 4;
 
 #endif // !ENTITY_H

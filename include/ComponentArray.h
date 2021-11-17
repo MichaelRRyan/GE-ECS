@@ -4,7 +4,7 @@
 #include <array>
 #include <unordered_map>
 #include <assert.h>
-#include "entities/Entity.h"
+#include "Entity.h"
 
 // An interface is needed so that the ComponentManager can tell a generic
 // ComponentArray that an entity has been destroyed and that it needs to update
@@ -13,7 +13,7 @@ class IComponentArray
 {
 public:
     virtual ~IComponentArray() = default;
-    virtual void entityDestroyed(Entity t_entity);
+    virtual void entityDestroyed(Entity t_entity) = 0;
 };
 
 template<typename T>

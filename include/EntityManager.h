@@ -4,7 +4,7 @@
 #include <queue>
 #include <array>
 #include <cassert>
-#include "entities/Entity.h"
+#include "Entity.h"
 #include "Signature.h"
 
 class EntityManager

@@ -2,12 +2,18 @@
 #define SYSTEM_H
 
 #include <set>
-#include "entities/Entity.h"
+#include "Entity.h"
 
-class System
+namespace ecs
 {
-public:
-    std::set<Entity> m_entities;
-};
+    namespace system
+    {
+        class System
+        {
+        public:
+            std::set<Entity> m_entities;
+        };
+    }
+}
 
 #endif // !SYSTEM_H
