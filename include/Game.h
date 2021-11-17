@@ -9,6 +9,7 @@
 #include "components/Position.h"
 #include "components/Health.h"
 #include "components/Input.h"
+#include "components/Name.h"
 
 #include "systems/ControlSystem.h"
 #include "systems/HealthSystem.h"
@@ -30,6 +31,10 @@ private:
     void render();
 
     void cleanUp();
+
+    void registerComponents(Coordinator & t_coord);
+    void setupSystems(Coordinator & t_coord);
+    void setupEntities(Coordinator & t_coord);
 
     bool m_gameIsRunning;
 
