@@ -35,6 +35,7 @@ void Game::processEvents()
 void Game::update()
 {
     //std::cout << "Updating" << std::endl;
+    m_aiSystem->update(1.0f);
 }
 
 void Game::render()
@@ -54,6 +55,7 @@ void Game::registerComponents(Coordinator & t_coord)
     t_coord.registerComponent<ecs::component::Health>();
     t_coord.registerComponent<ecs::component::Position>();
     t_coord.registerComponent<ecs::component::Name>();
+    t_coord.registerComponent<ecs::component::AI>();
 }
 
 void Game::setupSystems(Coordinator & t_coord)
@@ -76,6 +78,7 @@ void Game::setupSystems(Coordinator & t_coord)
     signature.reset();
     signature.set(t_coord.getComponentType<ecs::component::Health>());
     signature.set(t_coord.getComponentType<ecs::component::Position>());
+    signature.set(t_coord.getComponentType<ecs::component::AI>());
     t_coord.setSystemSignature<ecs::system::AISystem>(signature);
 
     // Registers and sets up the render system.
@@ -109,11 +112,14 @@ void Game::setupEntities(Coordinator & t_coord)
     // Sets up villain.
     t_coord.addComponent(m_entities.at(1), ecs::component::Name{ "Villain" });
     t_coord.addComponent(m_entities.at(1), ecs::component::Health{ 50.0f });
+    t_coord.addComponent(m_entities.at(1), ecs::component::AI{ 0.0f, 0.0f, 2.0f });
 
     // Sets up Cortana.
     t_coord.addComponent(m_entities.at(2), ecs::component::Name{ "Cortana" });
     t_coord.addComponent(m_entities.at(2), ecs::component::Health{ 1000.0f });
+    t_coord.addComponent(m_entities.at(2), ecs::component::AI{ 0.0f, 0.0f, 6.0f });
 
     // Sets up Dinky Di.
     t_coord.addComponent(m_entities.at(3), ecs::component::Name{ "Dinki Di" });
+    t_coord.addComponent(m_entities.at(3), ecs::component::AI{ 0.0f, 0.0f, 4.0f });
 }

@@ -10,6 +10,7 @@
 #include "components/Health.h"
 #include "components/Input.h"
 #include "components/Name.h"
+#include "components/AI.h"
 
 #include "systems/ControlSystem.h"
 #include "systems/HealthSystem.h"
