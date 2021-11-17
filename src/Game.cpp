@@ -51,6 +51,7 @@ void Game::update(float t_delta)
 {
     //std::cout << "Updating" << std::endl;
     m_aiSystem->update(t_delta);
+    m_controlSystem->update(t_delta);
 }
 
 void Game::render()
