@@ -29,8 +29,6 @@ namespace ecs
                 if (m_window == nullptr)
                     printf("Window Creation Error::SDL_Error: %s\n", SDL_GetError());
                 
-                m_windowOpen = true;
-
                 m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 
                 if (m_renderer == nullptr)
@@ -45,9 +43,6 @@ namespace ecs
                 // Sets up the entity rect.
                 m_entityRect.w = 80.0f;
                 m_entityRect.h = 80.0f;
-
-                // Sets up the text.
-                
             }
 
             ~RenderSystem()
@@ -59,23 +54,6 @@ namespace ecs
 
                 // Quits the SDL subsystems.
                 SDL_Quit();
-            }
-
-            void update(float t_delta)
-            {
-
-            }
-
-            void processEvents()
-            {
-                SDL_Event e;
-                while(SDL_PollEvent(&e) != 0)
-                {
-                    if(e.type == SDL_QUIT)
-                    {
-                        m_windowOpen = false;
-                    }
-                }
             }
 
             void render()
@@ -109,11 +87,6 @@ namespace ecs
                 SDL_RenderPresent(m_renderer);
             }
 
-            bool isWindowOpen()
-            {
-                return m_windowOpen;
-            }
-
             void setupText(std::string const & t_string, float t_x, float t_y)
             {
                 SDL_Surface * setupSurface = TTF_RenderText_Solid(m_font, t_string.c_str(), SDL_Color{255,255,255});
@@ -143,8 +116,6 @@ namespace ecs
 
             SDL_FRect m_entityRect;
             SDL_Rect m_textRect;
-
-            bool m_windowOpen;
 
         };
     }

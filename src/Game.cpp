@@ -18,7 +18,7 @@ Game::~Game()
     
 void Game::run()
 {
-    while (m_renderSystem->isWindowOpen())
+    while (!m_controlSystem->isExiting())
     {
         processEvents();
         update();
@@ -29,7 +29,7 @@ void Game::run()
 void Game::processEvents()
 {
     //std::cout << "Processing Events" << std::endl;
-    m_renderSystem->processEvents();
+    m_controlSystem->processEvents();
 }
 
 void Game::update()
