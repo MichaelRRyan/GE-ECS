@@ -75,15 +75,11 @@ namespace ecs
 
                     setupText(name.value, position.x, position.y);
                     SDL_RenderCopy(m_renderer, m_text, NULL, &m_textRect);
-
-//#define RENDER_HEALTH
-#ifdef RENDER_HEALTH
-                    auto const & health = coord.getComponent<ecs::component::Health>(entity);
-                    setupText("Health: " + std::to_string(int(health.value)), position.x, position.y + 60.0f);
-                    SDL_RenderCopy(m_renderer, m_text, NULL, &m_textRect);
-#endif
                 }
+            }
 
+            void display()
+            {
                 SDL_RenderPresent(m_renderer);
             }
 
@@ -104,6 +100,11 @@ namespace ecs
 
                 if (m_text == nullptr)
                     printf("Text loading error::SDL_Error: %s\n", SDL_GetError());
+            }
+
+            SDL_Renderer * getRenderer()
+            {
+                return m_renderer;
             }
 
         private:

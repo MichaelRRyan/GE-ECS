@@ -42,6 +42,8 @@ void Game::render()
 {
     //std::cout << "Rendering" << std::endl;
     m_renderSystem->render();
+    m_healthSystem->render();
+    m_renderSystem->display();
 }
 
 void Game::cleanUp()
@@ -67,11 +69,21 @@ void Game::setupSystems(Coordinator & t_coord)
     signature.set(t_coord.getComponentType<ecs::component::Position>());
     t_coord.setSystemSignature<ecs::system::ControlSystem>(signature);
 
+    // Registers and sets up the render system.
+    m_renderSystem = t_coord.registerSystem<ecs::system::RenderSystem>();
+    signature.reset();
+    signature.set(t_coord.getComponentType<ecs::component::Position>());
+    signature.set(t_coord.getComponentType<ecs::component::Name>());
+    t_coord.setSystemSignature<ecs::system::RenderSystem>(signature);
+
     // Registers and sets up the health system.
     m_healthSystem = t_coord.registerSystem<ecs::system::HealthSystem>();
     signature.reset();
     signature.set(t_coord.getComponentType<ecs::component::Health>());
+    signature.set(t_coord.getComponentType<ecs::component::Name>());
     t_coord.setSystemSignature<ecs::system::HealthSystem>(signature);
+    
+    m_healthSystem->setRenderer(m_renderSystem->getRenderer());
 
     // Registers and sets up the AI system.
     m_aiSystem = t_coord.registerSystem<ecs::system::AISystem>();
@@ -80,18 +92,6 @@ void Game::setupSystems(Coordinator & t_coord)
     signature.set(t_coord.getComponentType<ecs::component::Position>());
     signature.set(t_coord.getComponentType<ecs::component::AI>());
     t_coord.setSystemSignature<ecs::system::AISystem>(signature);
-
-    // Registers and sets up the render system.
-    m_renderSystem = t_coord.registerSystem<ecs::system::RenderSystem>();
-    signature.reset();
-    signature.set(t_coord.getComponentType<ecs::component::Position>());
-    signature.set(t_coord.getComponentType<ecs::component::Name>());
-
-#ifdef RENDER_HEALTH
-    signature.set(t_coord.getComponentType<ecs::component::Health>());
-#endif
-
-    t_coord.setSystemSignature<ecs::system::RenderSystem>(signature);
 }
 
 void Game::setupEntities(Coordinator & t_coord)
