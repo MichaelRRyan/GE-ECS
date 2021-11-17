@@ -84,7 +84,6 @@ void Game::setupSystems(Coordinator & t_coord)
     signature.set(t_coord.getComponentType<ecs::component::Position>());
     signature.set(t_coord.getComponentType<ecs::component::Name>());
 
-//#define RENDER_HEALTH
 #ifdef RENDER_HEALTH
     signature.set(t_coord.getComponentType<ecs::component::Health>());
 #endif
@@ -99,7 +98,7 @@ void Game::setupEntities(Coordinator & t_coord)
     for (Entity & entity : m_entities)
     {
         entity = t_coord.createEntity();
-        t_coord.addComponent(entity, ecs::component::Position{ 50.0f + 50.0f * offset++, 50.0f });
+        t_coord.addComponent(entity, ecs::component::Position{ 50.0f + 100.0f * offset++, 50.0f });
     }
 
     // Sets up player.
