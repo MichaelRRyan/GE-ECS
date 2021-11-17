@@ -15,13 +15,28 @@ Game::~Game()
 {
     cleanUp();
 }
-    
+
+float getCurrentSeconds()
+{
+    return static_cast<float>(SDL_GetTicks()) / 1000.0f;
+}
+
 void Game::run()
 {
+    float lastUpdateTime = getCurrentSeconds();
+    const float FPS{ 60.0f };
+    float timePerFrame = 1.0f / FPS;
     while (!m_controlSystem->isExiting())
     {
         processEvents();
-        update();
+        float now = getCurrentSeconds();
+        if (now >= lastUpdateTime + timePerFrame)
+        {
+            float dt = now - lastUpdateTime;
+            processEvents();
+            update(dt);
+            lastUpdateTime = now;
+        }
         render();
     }
 }
@@ -32,10 +47,10 @@ void Game::processEvents()
     m_controlSystem->processEvents();
 }
 
-void Game::update()
+void Game::update(float t_delta)
 {
     //std::cout << "Updating" << std::endl;
-    m_aiSystem->update(1.0f);
+    m_aiSystem->update(t_delta);
 }
 
 void Game::render()
@@ -112,14 +127,13 @@ void Game::setupEntities(Coordinator & t_coord)
     // Sets up villain.
     t_coord.addComponent(m_entities.at(1), ecs::component::Name{ "Villain" });
     t_coord.addComponent(m_entities.at(1), ecs::component::Health{ 50.0f });
-    t_coord.addComponent(m_entities.at(1), ecs::component::AI{ 0.0f, 0.0f, 2.0f });
+    t_coord.addComponent(m_entities.at(1), ecs::component::AI{ 0.0f, 0.0f, 10.0f });
 
     // Sets up Cortana.
     t_coord.addComponent(m_entities.at(2), ecs::component::Name{ "Cortana" });
     t_coord.addComponent(m_entities.at(2), ecs::component::Health{ 1000.0f });
-    t_coord.addComponent(m_entities.at(2), ecs::component::AI{ 0.0f, 0.0f, 6.0f });
+    t_coord.addComponent(m_entities.at(2), ecs::component::AI{ 0.0f, 0.0f, 20.0f });
 
     // Sets up Dinky Di.
     t_coord.addComponent(m_entities.at(3), ecs::component::Name{ "Dinki Di" });
-    t_coord.addComponent(m_entities.at(3), ecs::component::AI{ 0.0f, 0.0f, 4.0f });
 }

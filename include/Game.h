@@ -28,7 +28,7 @@ public:
 private:
 
     void processEvents();
-    void update();
+    void update(float t_delta);
     void render();
 
     void cleanUp();
